@@ -314,19 +314,20 @@ class NewVersionPlus {
       context: context,
       barrierDismissible: allowDismissal,
       builder: (BuildContext context) {
-        return WillPopScope(
-            child: Platform.isAndroid
-                ? AlertDialog(
-                    title: dialogTitleWidget,
-                    content: dialogTextWidget,
-                    actions: actions,
-                  )
-                : CupertinoAlertDialog(
-                    title: dialogTitleWidget,
-                    content: dialogTextWidget,
-                    actions: actions,
-                  ),
-            onWillPop: () => Future.value(allowDismissal));
+        return PopScope(
+          canPop: allowDismissal,
+          child: Platform.isAndroid
+              ? AlertDialog(
+                  title: dialogTitleWidget,
+                  content: dialogTextWidget,
+                  actions: actions,
+                )
+              : CupertinoAlertDialog(
+                  title: dialogTitleWidget,
+                  content: dialogTextWidget,
+                  actions: actions,
+                ),
+        );
       },
     );
   }
